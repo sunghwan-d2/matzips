@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<h2 class="title">회원가입</h2>
+<input hidden name="emailSalt" type="hidden">
+<label class="_obj-label">
+    <span class="__text">이메일</span>
+    <span class="horizontal">
+        <input required autocomplete="email" class="_obj-input __field input spring" maxlength="50" minlength="5" name="email" placeholder="이메일 (user@sample.com)" spellcheck="false" type="text">
+        <button class="_obj-button" name="emailSend" type="button">인증번호 전송</button>
+    </span>
+    <span class="horizontal">
+        <input required autocomplete="email" class="_obj-input __field input spring" maxlength="50" minlength="5" name="email" placeholder="인증번호 (숫자 여섯 자리)" spellcheck="false" type="text">
+        <button class="_obj-button" name="emailVerify" type="button">인증번호 확인</button>
+    </span>
+</label>
+</body>
+</html>
