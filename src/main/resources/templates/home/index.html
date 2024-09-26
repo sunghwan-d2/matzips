@@ -1,13 +1,56 @@
-<!doctype html>'
+<!doctype html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>맛을 담다 - 맛집</title>
+    <title>맛을 담다 - 맛집 </title>
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/styles/common.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/styles/index.css}">
+    <link rel="shortcut icon" th:href="@{/assets/images/_logo.png}">
+    <script src="https://cdn.jsdelivr.net/npm/flickity@3.0.0/dist/flickity.pkgd.min.js"></script>
+    <link type="text/css" href="https://cdn.jsdelivr.net/npm/flickity@3.0.0/css/flickity.min.css" rel="stylesheet">
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script type="text/javascript"
+            src="//dapi.kakao.com/v2/maps/sdk.js?appkey=406fe35d9fe0e0d0928b5909868b3dbb&libraries=services"></script>
+    <script src="https://kit.fontawesome.com/6dee20ad07.js" crossorigin="anonymous"></script>
+    <script defer type="text/javascript" th:src="@{/assets/scripts/common.js}"></script>
+    <script defer type="text/javascript" th:src="@{/assets/scripts/index.cover.js}"></script>
+    <script defer type="text/javascript" th:src="@{/assets/scripts/index.loading.js}"></script>
+    <script defer type="text/javascript" th:src="@{/assets/scripts/index.loginForm.js}"></script>
+    <script defer type="text/javascript" th:src="@{/assets/scripts/index.map.js}"></script>
+    <script defer type="text/javascript" th:src="@{/assets/scripts/index.place.js}"></script>
+    <script defer type="text/javascript" th:src="@{/assets/scripts/index.placeAddAside.js}"></script>
+    <script defer type="text/javascript" th:src="@{/assets/scripts/index.placeDetailAside.js}"></script>
+    <script defer type="text/javascript" th:src="@{/assets/scripts/index.placeListAside.js}"></script>
+    <script defer type="text/javascript" th:src="@{/assets/scripts/index.placeModifyAside.js}"></script>
+    <script defer type="text/javascript" th:src="@{/assets/scripts/index.recoverDialog.js}"></script>
+    <script defer type="text/javascript" th:src="@{/assets/scripts/index.registerForm.js}"></script>
+    <script defer type="text/javascript" th:src="@{/assets/scripts/index.js}"></script>
 </head>
-<body>
-
+<body th:with="userRegex=${T(com.ksh.matzips.regexes.UserRegex)}, emailAuthRegex=${T(com.ksh.matzips.regexes.EmailAuthRegex)}">
+<th:block th:replace="~{fragments/index/loading.html :: loading}"></th:block>
+<th:block th:replace="~{fragments/index/cover.html :: cover}"></th:block>
+<th:block th:replace="~{fragments/index/loginForm.html :: loginForm}"></th:block>
+<th:block th:replace="~{fragments/index/registerForm.html :: registerForm}"></th:block>
+<th:block th:replace="~{fragments/index/recoverDialog.html :: recoverDialog}"></th:block>
+<th:block th:replace="~{fragments/index/nav.html :: nav}"></th:block>
+<th:block th:replace="~{fragments/index/placeListAside.html :: placeListAside}"></th:block>
+<th:block th:replace="~{fragments/index/placeAddAside.html :: placeAddAside}"></th:block>
+<th:block th:replace="~{fragments/index/placeModifyAside.html :: placeModifyAside}"></th:block>
+<th:block th:replace="~{fragments/index/placeDetailAside.html :: placeDetailAside}"></th:block>
+<th:block th:replace="~{fragments/index/map.html :: map}"></th:block>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
