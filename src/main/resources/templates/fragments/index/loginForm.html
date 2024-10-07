@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<form novalidate class="dialog" id="loginForm" th:fragment="loginForm"
+      th:with="userRegex=${T(com.ksh.matzips.regexes.UserRegex)}">
+    <h2 class="title">로그인</h2>
+    <label class="_obj-label label" rel="emailLabel">
+        <span class="__text">이메일</span>
+        <input required autocomplete="email" class="_obj-input __field input" maxlength="50" minlength="5" name="email"
+               placeholder="이메일 (user@sample.com)" spellcheck="false" type="text"
+               th:attrappend="data-regex=${userRegex.email.expression}">
+    </label>
+    <label class="_obj-label label" rel="passwordLabel">
+        <span class="__text">비밀번호</span>
+        <input required autocomplete="current-password" class="_obj-input __field input" maxlength="50" minlength="5"
+               name="password" placeholder="비밀번호 (숫자, 영어 대소문자, 특수기호 5자 이상 50자 이하)" type="password"
+               th:attrappend="data-regex=${userRegex.password.expression}">
+    </label>
+    <label class="_obj-check-label label">
+        <input hidden class="__input" type="checkbox">
+        <span class="__checkbox"></span>
+        <span class="__text">이메일을 기억합니다.</span>
+    </label>
+    <button class="_obj-button" type="submit">
+        <i class="__icon"></i>
+        <span class="__text">로그인</span>
+    </button>
+    <ul class="menu">
+        <li class="item">
+            <span class="text">아직 계정이 없으신가요?</span>
+            <a class="link" href="#" rel="showRegisterCaller">회원가입</a>
+        </li>
+        <li class="item">
+            <span class="text">계정 정보를 분실하셨나요?</span>
+            <a class="link" href="#" rel="showRecoverCaller">계정 찾기</a>
+        </li>
+    </ul>
+</form>
+</html>

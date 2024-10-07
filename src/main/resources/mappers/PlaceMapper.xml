@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ksh.matzips.mappers.PlaceMapper">
+
+    <delete id="deletePlaceByIndex">
+        DELETE
+        FROM `matzips`.`places`
+        WHERE `index`= #{index}
+        LIMIT 1
+    </delete>
+
+    <delete id="deletePlaceReviewLike">
+        DELETE
+        FROM `matzips`.`place_review_likes`
+        WHERE `place_review_index`= #{placeReviewIndex}
+        AND BINARY `user_email`=#{userEmail}
+        LIMIT 1
+    </delete>
+
+    <insert id="insertPlace"
+            useGeneratedKeys="true"
+            keyColumn="index"
+            keyProperty="index"
+            parameterType="com.ksh.matzips.entities.PlaceEntity">
+        INSERT INTO `matzips`.`places`(`name`, `place_category_code`, `thumbnail`, `thumbnail_content_type`,
+                                      `contact_first`, `contact_second`, `contact_third`, `latitude`, `longitude`,
+                                      `address_postal`, `address_primary`, `address_secondary`, `description`,
+                                      `schedule`, `user_email`, `created_at`)
+        VALUES (#{name}, #{placeCategoryCode}, #{thumbnail}, #{thumbnailContentType}, #{contactFirst}, #{contactSecond},
+                #{contactThird}, #{latitude}, #{longitude}, #{addressPostal}, #{addressPrimary}, #{addressSecondary},
+                #{description}, #{schedule}, #{userEmail}, #{createdAt})
+    </insert>
+
+    <insert id="insertPlaceReview"
+            useGeneratedKeys="true"
+            keyColumn="index"
+            keyProperty="index"
+            parameterType="com.ksh.matzips.entities.PlaceReviewEntity">
+        INSERT INTO `matzips`.`place_reviews`(`place_index`, `user_email`, `rating`, `content`, `created_at`, `modified_at`)
+        VALUES (#{placeIndex},#{userEmail},#{rating},#{content},#{createdAt},#{modifiedAt})
+    </insert>
+
+    <insert id="insertPlaceReviewImage"
+            useGeneratedKeys="true"
+            keyColumn="index"
+            keyProperty="index"
+            parameterType="com.ksh.matzips.entities.PlaceReviewImageEntity">
+        INSERT INTO `matzips`.`place_review_images`(`place_review_index`,`data`,`name`,`content_type`)
+        VALUES (#{placeReviewIndex},#{data},#{name},#{contentType})
+    </insert>
+
+    <insert id="insertPlaceReviewLike" parameterType="com.ksh.matzips.entities.PlaceReviewLikeEntity">
+        INSERT INTO `matzips`.`place_review_likes` (`place_review_index`, `user_email`, `liked_flag`)
+        VALUES (#{placeReviewIndex}, #{userEmail}, #{isLiked})
+    </insert>
+
+    <select id="selectPlaceByIndex" resultType="com.ksh.matzips.entities.PlaceEntity">
+        SELECT `index`                  AS `index`,
+               `name`                   AS `name`,
+               `place_category_code`    AS `placeCategoryCode`,
+               `thumbnail`              AS `thumbnail`,
+               `thumbnail_content_type` AS `thumbnailContentType`,
+               `contact_first`          AS `contactFirst`,
+               `contact_second`         AS `contactSecond`,
+               `contact_third`          AS `contactThird`,
+               `latitude`               AS `latitude`,
+               `longitude`              AS `longitude`,
+               `address_postal`         AS `addressPostal`,
+               `address_primary`        AS `addressPrimary`,
+               `address_secondary`      AS `addressSecondary`,
+               `description`            AS `description`,
+               `schedule`               AS `schedule`,
+               `user_email`             AS `userEmail`,
+               `created_at`             AS `createdAt`
+        FROM `matzips`.`places`
+        WHERE `index` = #{index}
+        LIMIT 1
+    </select>
+
+    <select id="selectPlaceByCoords" resultType="com.ksh.matzips.dtos.PlaceDto">
+        SELECT `place`.`index`                                       AS `index`,
+               `place`.`name`                                        AS `name`,
+               `place`.`place_category_code`                         AS `placeCategoryCode`,
+               `place`.`contact_first`                               AS `contactFirst`,
+               `place`.`contact_second`                              AS `contactSecond`,
+               `place`.`contact_third`                               AS `contactThird`,
+               `place`.`latitude`                                    AS `latitude`,
+               `place`.`longitude`                                   AS `longitude`,
+               `place`.`address_postal`                              AS `addressPostal`,
+               `place`.`address_primary`                             AS `addressPrimary`,
+               `place`.`address_secondary`                           AS `addressSecondary`,
+               `place`.`description`                                 AS `description`,
+               `place`.`schedule`                                    AS `schedule`,
+               `place`.`user_email`                                  AS `userEmail`,
+               `place`.`created_at`                                  AS `createdAt`,
+               `placeCategory`.`text`                                AS `category`,
+               (SELECT count(0)
+                FROM `matzips`.`place_reviews` AS `placeReview`
+                WHERE `placeReview`.`place_index` = `place`.`index`) AS `reviewCount`
+        FROM `matzips`.`places` AS `place`
+                 LEFT JOIN `matzips`.`place_categories` AS `placeCategory`
+                           ON `place`.`place_category_code` = `placeCategory`.`code`
+        WHERE `place`.`latitude` BETWEEN #{minLat} AND #{maxLat}
+          AND `place`.`longitude` BETWEEN #{minLng} AND #{maxLng}
+        ORDER BY `place`.`index`
+
+    </select>
+
+
+
+    <select id="selectPlaceDtoByIndex" resultType="com.ksh.matzips.dtos.PlaceDto">
+        SELECT `place`.`index`                                       AS `index`,
+               `place`.`name`                                        AS `name`,
+               `place`.`place_category_code`                         AS `placeCategoryCode`,
+               `place`.`contact_first`                               AS `contactFirst`,
+               `place`.`contact_second`                              AS `contactSecond`,
+               `place`.`contact_third`                               AS `contactThird`,
+               `place`.`latitude`                                    AS `latitude`,
+               `place`.`longitude`                                   AS `longitude`,
+               `place`.`address_postal`                              AS `addressPostal`,
+               `place`.`address_primary`                             AS `addressPrimary`,
+               `place`.`address_secondary`                           AS `addressSecondary`,
+               `place`.`description`                                 AS `description`,
+               `place`.`schedule`                                    AS `schedule`,
+               `place`.`user_email`                                  AS `userEmail`,
+               `place`.`created_at`                                  AS `createdAt`,
+               `placeCategory`.`text`                                AS `category`,
+               IFNULL((SELECT AVG(`rating`)
+                       FROM `matzips`.`place_reviews`
+                       WHERE `place_index` = `place`.`index`), 0)    AS `rating`,
+               (SELECT count(0)
+                FROM `matzips`.`place_reviews` AS `placeReview`
+                WHERE `placeReview`.`place_index` = `place`.`index`) AS `reviewCount`
+        FROM `matzips`.`places` AS `place`
+                 LEFT JOIN `matzips`.`place_categories` AS `placeCategory`
+                           ON `place`.`place_category_code` = `placeCategory`.`code`
+        WHERE `index` = #{index}
+        LIMIT 1
+    </select>
+
+
+    <select id="selectPlaceByContact" resultType="com.ksh.matzips.entities.PlaceEntity">
+        SELECT `index`                  AS `index`,
+               `name`                   AS `name`,
+               `place_category_code`    AS `placeCategoryCode`,
+               `thumbnail`              AS `thumbnail`,
+               `thumbnail_content_type` AS `thumbnailContentType`,
+               `contact_first`          AS `contactFirst`,
+               `contact_second`         AS `contactSecond`,
+               `contact_third`          AS `contactThird`,
+               `latitude`               AS `latitude`,
+               `longitude`              AS `longitude`,
+               `address_postal`         AS `addressPostal`,
+               `address_primary`        AS `addressPrimary`,
+               `address_secondary`      AS `addressSecondary`,
+               `description`            AS `description`,
+               `schedule`               AS `schedule`,
+               `user_email`             AS `userEmail`,
+               `created_at`             AS `createdAt`
+        FROM `matzips`.`places`
+        WHERE BINARY `contact_first` = #{contactFirst}
+          AND BINARY `contact_second` = #{contactSecond}
+          AND BINARY `contact_third` = #{contactThird}
+        LIMIT 1
+    </select>
+
+    <select id="selectPlaceReviewByIndex" parameterType="com.ksh.matzips.dtos.PlaceReviewDto">
+        SELECT `placeReview`.`index`                                        AS `index`,
+               `placeReview`.`place_index`                                  AS `placeIndex`,
+               `placeReview`.`user_email`                                   AS `userEmail`,
+               `placeReview`.`rating`                                       AS `rating`,
+               `placeReview`.`content`                                      AS `content`,
+               `placeReview`.`created_at`                                   AS `createdAt`,
+               `placeReview`.`modified_at`                                  AS `modifiedAt`,
+               (SELECT `nickname`
+                FROM `matzips`.`users` AS `T1`
+                WHERE `T1`.`email` = `placeReview`.`user_email`
+                LIMIT 1)                                                    AS `userNickname`,
+               (SELECT COUNT(0)
+                FROM `matzips`.`place_reviews` AS `T1`
+                WHERE `T1`.`user_email` = `placeReview`.`user_email`)       AS `totalReviewCount`,
+               (SELECT COUNT(0)
+                FROM `matzips`.`place_review_images` AS `T1`
+                         LEFT JOIN `matzips`.`place_reviews` AS `T2` ON
+                    `T1`.`place_review_index` = `T2`.`index`
+                        AND `T2`.`user_email` = `placeReview`.`user_email`) AS `totalImageCount`,
+               (SELECT COUNT(0)
+                FROM `matzips`.`place_review_likes` AS `T1`
+                WHERE `T1`.`place_review_index` = `placeReview`.`index`
+                  AND `T1`.`liked_flag` = TRUE)                             AS `likeCount`,
+               (SELECT COUNT(0)
+                FROM `matzips`.`place_review_likes` AS `T1`
+                WHERE `T1`.`place_review_index` = `placeReview`.`index`
+                  AND `T1`.`liked_flag` = FALSE)                            AS `dislikeCount`
+        FROM `matzips`.`place_reviews` AS `placeReview`
+        WHERE `index`= #{index}
+        LIMIT 1
+    </select>
+
+    <select id="selectPlaceReviewsByPlaceIndex" parameterType="com.ksh.matzips.dtos.PlaceReviewDto">
+        SELECT `placeReview`.`index`                                        AS `index`,
+               `placeReview`.`place_index`                                  AS `placeIndex`,
+               `placeReview`.`user_email`                                   AS `userEmail`,
+               `placeReview`.`rating`                                       AS `rating`,
+               `placeReview`.`content`                                      AS `content`,
+               `placeReview`.`created_at`                                   AS `createdAt`,
+               `placeReview`.`modified_at`                                  AS `modifiedAt`,
+               (SELECT `nickname`
+                FROM `matzips`.`users` AS `T1`
+                WHERE `T1`.`email` = `placeReview`.`user_email`
+                LIMIT 1)                                                    AS `userNickname`,
+               (SELECT COUNT(0)
+                FROM `matzips`.`place_reviews` AS `T1`
+                WHERE `T1`.`user_email` = `placeReview`.`user_email`)       AS `totalReviewCount`,
+               (SELECT COUNT(0)
+                FROM `matzips`.`place_review_images` AS `T1`
+                         LEFT JOIN `matzips`.`place_reviews` AS `T2` ON
+                    `T1`.`place_review_index` = `T2`.`index`
+                        AND `T2`.`user_email` = `placeReview`.`user_email`) AS `totalImageCount`,
+               (SELECT COUNT(0)
+                FROM `matzips`.`place_review_likes` AS `T1`
+                WHERE `T1`.`place_review_index` = `placeReview`.`index`
+                  AND `T1`.`liked_flag` = TRUE)                             AS `likeCount`,
+               (SELECT COUNT(0)
+                FROM `matzips`.`place_review_likes` AS `T1`
+                WHERE `T1`.`place_review_index` = `placeReview`.`index`
+                  AND `T1`.`liked_flag` = FALSE)                            AS `dislikeCount`,
+            (SELECT ''
+             FROM `matzips`.`place_review_likes` AS `T1`
+             WHERE `T1`.`place_review_index`=`placeReview`.`index`
+             AND `T1`.`user_email`=#{userEmail})
+        FROM `matzips`.`place_reviews` AS `placeReview`
+        WHERE `placeReview`.`place_index` = #{placeIndex}
+    </select>
+
+    <select id="selectPlaceReviewImageByIndex" resultType="com.ksh.matzips.entities.PlaceReviewImageEntity">
+        SELECT `index`              AS `index`,
+               `place_review_index` AS `placeReviewIndex`,
+               `data`               AS `data`,
+               `name`               AS `name`,
+               `content_type`       AS `contentType`
+        FROM `matzips`.`place_review_images`
+        WHERE `index` = #{index}
+        LIMIT 1
+    </select>
+
+    <select id="selectPlaceReviewImagesByPlaceReviewIndex" resultType="com.ksh.matzips.entities.PlaceReviewImageEntity">
+        SELECT `index`              AS `index`,
+               `place_review_index` AS `placeReviewIndex`,
+               `data`               AS `data`,
+               `name`               AS `name`,
+               `content_type`       AS `contentType`
+        FROM `matzips`.`place_review_images`
+        WHERE `place_review_index` = #{placeReviewIndex}
+    </select>
+
+    <update id="updatePlace" parameterType="com.ksh.matzips.entities.PlaceEntity">
+        UPDATE `matzips`.`places`
+        SET `name`                   = #{name},
+            `place_category_code`    = #{placeCategoryCode},
+            `thumbnail`              = #{thumbnail},
+            `thumbnail_content_type` = #{thumbnailContentType},
+            `contact_first`          = #{contactFirst},
+            `contact_second`         = #{contactSecond},
+            `contact_third`          = #{contactThird},
+            `latitude`               = #{latitude},
+            `longitude`              = #{longitude},
+            `address_postal`         = #{addressPostal},
+            `address_primary`        = #{addressPrimary},
+            `address_secondary`      = #{addressSecondary},
+            `description`            = #{description},
+            `schedule`               = #{schedule},
+            `user_email`             = #{userEmail},
+            `created_at`             = #{createdAt}
+        WHERE `index` = #{index}
+        LIMIT 1
+    </update>
+</mapper>

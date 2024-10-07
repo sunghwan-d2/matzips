@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<nav id="nav" th:fragment="nav">
+    <ul class="menu">
+        <li class="item logo">
+            <img alt="" class="image" th:src="@{/assets/images/_logo.png}">
+        </li>
+        <li class="item">
+            <a class="link" href="#" rel="toggleHomeCaller">
+                <i class="icon fa-solid fa-house"></i>
+                <span class="text">홈</span>
+            </a>
+        </li>
+        <li class="item">
+            <a class="link" href="#" rel="toggleFavoriteCaller">
+                <i class="icon fa-solid fa-star"></i>
+                <span class="text">저장</span>
+            </a>
+        </li>
+    </ul>
+    <div class="spring"></div>
+    <ul class="menu">
+        <li class="item" th:if="${session.user == null}">
+            <a class="link" href="#" rel="showLoginCaller">
+                <i class="icon fa-solid fa-arrow-right-to-bracket"></i>
+                <span class="text">로그인</span>
+            </a>
+        </li>
+        <li class="item" th:if="${session.user != null}">
+            <a class="link" th:href="@{/user/logout}">
+                <i class="icon fa-solid fa-arrow-right-from-bracket"></i>
+                <span class="text">로그아웃</span>
+            </a>
+        </li>
+        <li class="item">
+            <a class="link" href="#">
+                <i class="icon fa-solid fa-headset"></i>
+                <span class="text">고객센터</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+</html>

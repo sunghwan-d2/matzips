@@ -1,0 +1,50 @@
+#placeAddAside > .form {
+  padding: 1rem;
+  align-items: stretch;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  justify-content: flex-start;
+}
+#placeAddAside > .form > label[rel=scheduleLabel] > table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+#placeAddAside > .form > label[rel=scheduleLabel] > table td, #placeAddAside > .form > label[rel=scheduleLabel] > table th {
+  white-space: nowrap;
+}
+#placeAddAside > .form > label[rel=scheduleLabel] > table thead > tr {
+  background-color: #212121;
+  color: #ffffff;
+}
+#placeAddAside > .form > label[rel=scheduleLabel] > table thead > tr > th {
+  font: inherit;
+  font-size: 0.8rem;
+  padding: 0.5rem;
+}
+#placeAddAside > .form > label[rel=scheduleLabel] > table thead > tr > th:first-child {
+  border-top-left-radius: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
+  padding-right: 1rem;
+  padding-left: 1rem;
+}
+#placeAddAside > .form > label[rel=scheduleLabel] > table thead > tr > th:last-child {
+  border-top-right-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
+  padding-right: 1rem;
+  padding-left: 1rem;
+}
+#placeAddAside > .form > label[rel=scheduleLabel] > table tbody > tr > * {
+  padding: 0.125rem 0;
+}
+#placeAddAside > .form > label[rel=scheduleLabel] > table tbody > tr > *:nth-child(1) {
+  font-weight: 600;
+}
+#placeAddAside > .form > label[rel=scheduleLabel] > table tbody > tr:nth-child(1) > * .__text {
+  color: #e74c3c;
+}
+#placeAddAside > .form > label[rel=scheduleLabel] > table tbody > tr:nth-child(7) > * .__text {
+  color: #3498db;
+}
+
+/*# sourceMappingURL=index.placeAddAside.css.map */

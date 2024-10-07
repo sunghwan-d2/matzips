@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<aside class="aside place-list -visible" id="placeListAside" th:fragment="placeListAside">
+    <div class="title">
+        <h2 class="text">맛집</h2>
+        <button class="close" type="button">
+            <i class="icon fa-solid fa-x"></i>
+        </button>
+    </div>
+    <ul class="menu">
+        <li class="item">
+            <button class="button" rel="placeAddButton" type="button">
+                <i class="icon fa-solid fa-plus"></i>
+                <span class="text">등록</span>
+            </button>
+        </li>
+    </ul>
+    <ul class="list">
+        <li class="item empty">현재 위치에서 표시할 맛집이 없어요.<br><br>위치를 옮기거나 나만의 맛집을 등록해 보세요.</li>
+        <li class="item">
+            <img alt="" class="image"
+                 src="https://blog.kakaocdn.net/dn/b9Za3I/btq97neowDQ/3WWQJ3o94cVT2rQqRfWi8K/img.png">
+            <div class="spec">
+                <span class="name-wrapper">
+                    <span class="name">솔솥 대구 동성로점</span>
+                    <span class="category">한식</span>
+                </span>
+                <span class="address">대구 중구 동성로3가</span>
+                <span class="misc">
+                    <span class="time">09:00~18:00</span>
+                    <span class="review">
+                        <span class="text">리뷰</span>
+                        <span class="count">1,234</span>
+                    </span>
+                </span>
+                <span class="button-container">
+                    <button class="button" name="modify" type="button">수정</button>
+                    <button class="button" name="delete" type="button">삭제</button>
+                    <button class="button" name="report" type="button">신고</button>
+                </span>
+            </div>
+        </li>
+    </ul>
+</aside>
+</html>

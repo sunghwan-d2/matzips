@@ -1,0 +1,140 @@
+@charset "UTF-8";
+
+
+#placeModifyAside {
+  > .address_wrapper {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #212121a0;
+    opacity: 0;
+    pointer-events: none;
+    position: fixed;
+    transition: opacity 250ms;
+    z-index: 10;
+
+
+    > .dialog {
+      top: calc(50% + 0.5rem);
+      left: 50%;
+      width: 22.5rem;
+      height: 27.5rem;
+      background-color: #ffffff;
+      border-radius: 0.25rem;
+      overflow: hidden;
+      position: absolute;
+      transform: translate(-50%, -50%);
+      transition: top 250ms
+    }
+
+    &.-visible {
+      opacity: 1;
+      pointer-events: all;
+
+      > .dialog {
+        top: 50%;
+      }
+    }
+  }
+
+  > .form {
+    padding: 1rem;
+
+    align-items: stretch;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    justify-content: flex-start;
+
+    > label[rel="thumbnailLabel"] > .image-wrapper {
+      width: 100%;
+      align-self: 4/3;
+      background-color: red;
+      border-radius: 0.25rem;
+      overflow: hidden;
+
+      > .image{
+        width: 100%;
+        height: 100%;
+        cursor: pointer;
+        display: none;
+
+        object-fit: cover;
+        object-position: center ;
+      }
+
+      > .empty {
+        width: 100%;
+        height: 100%;
+        background-color: #f5f5f5;
+        color: #757575;
+        cursor: pointer;
+
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+    }
+
+    > label[rel="scheduleLabel"] > table {
+      border-collapse: collapse;
+      border-spacing: 0;
+
+
+      td, th {
+        white-space: nowrap;
+      }
+
+      input[type="time"] {
+
+      }
+
+      thead > tr {
+        background-color: #212121;
+        color: #ffffff;
+
+        > th {
+          font: inherit;
+          font-size: 0.8rem;
+          padding: 0.5rem;
+
+          &:first-child{
+            border-top-left-radius: 0.25rem;
+            border-bottom-left-radius: 0.25rem;
+            padding-right: 1rem;
+            padding-left: 1rem;
+          }
+
+          &:last-child{
+            border-top-right-radius: 0.25rem;
+            border-bottom-right-radius: 0.25rem;
+            padding-right: 1rem;
+            padding-left: 1rem;
+          }
+        }
+      }
+
+      tbody > tr {
+        > *{
+          padding: 0.125rem 0;
+        }
+
+        > *:nth-child(1){
+          font-weight: 600;
+        }
+
+        &:nth-child(1) > * .__text{
+          color: #e74c3c;
+        }
+
+        &:nth-child(7) > * .__text {
+          color: #3498db;
+        }
+      }
+
+
+    }
+  }
+}

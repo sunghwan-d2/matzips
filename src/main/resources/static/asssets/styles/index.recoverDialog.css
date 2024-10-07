@@ -1,0 +1,59 @@
+#recoverDialog {
+  width: 25rem;
+}
+#recoverDialog > .type-wrapper {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+#recoverDialog > .type-wrapper > .type {
+  border: 0.125rem solid #e0e0e0;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  padding: 0.75rem;
+  user-select: none;
+  align-items: stretch;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  justify-content: flex-start;
+}
+#recoverDialog > .type-wrapper > .type > .text {
+  color: #757575;
+  font-size: 0.8rem;
+  text-align: justify;
+}
+#recoverDialog > .type-wrapper > .type > .input {
+  display: none;
+}
+#recoverDialog > .type-wrapper > .type:hover {
+  border-color: #bdbdbd;
+}
+#recoverDialog > .type-wrapper > .type:has(:checked) {
+  border-color: #3498db;
+}
+#recoverDialog > .type-wrapper:has([value=email]:checked) ~ .recover.email {
+  display: flex;
+}
+#recoverDialog > .type-wrapper:has([value=password]:checked) ~ .recover.password {
+  display: flex;
+}
+#recoverDialog > .recover {
+  display: none;
+  align-items: stretch;
+  flex-direction: column;
+  gap: 0.25rem;
+  justify-content: flex-start;
+}
+#recoverDialog > .recover .horizontal {
+  align-items: stretch;
+  display: flex;
+  flex-direction: row;
+  gap: 0.375rem;
+  justify-content: flex-start;
+}
+#recoverDialog > .recover .horizontal > .spring {
+  flex: 1;
+}
+
+/*# sourceMappingURL=index.recoverDialog.css.map */

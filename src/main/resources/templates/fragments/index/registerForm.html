@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" th:fragment="registerForm">
-<form novalidate class="dialog" id="registerForm" th:fragment="registerForm" th:with="userRegex=${T(com.ksh.matzips.regexes.UserRegex)}, emailAuthRegex=${T(com.ksh.matzips.regexes.EmailAuthRegex)}" >
+<form novalidate class="dialog" id="registerForm" th:fragment="registerForm" th:with="userRegex=${T(com.ksh.matzips.regexes.UserRegex)}, emailAuthRegex=${T(com.ksh.matzips.regexes.EmailAuthRegex)}">
 
     <h2 class="title">회원가입</h2>
     <input hidden name="emailSalt" type="hidden">

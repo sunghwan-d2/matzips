@@ -1,0 +1,20 @@
+#cover {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(33, 33, 33, 0.6274509804);
+  opacity: 0;
+  pointer-events: none;
+  position: fixed;
+  transition-duration: 250ms;
+  transition-property: opacity;
+  transition-timing-function: ease;
+  z-index: 8;
+}
+#cover.-visible {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/*# sourceMappingURL=index.cover.css.map */

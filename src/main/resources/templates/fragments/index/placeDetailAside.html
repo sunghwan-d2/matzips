@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<aside class="aside place-modify" id="placeDetailAside" th:fragment="placeDetailAside" th:with="userRegex=${T(com.ksh.matzips.regexes.UserRegex)}">
+    <div class="title">
+        <h2 class="text">맛집 상세</h2>
+        <button class="close" rel="closeButton" type="button">
+            <i class="icon fa-solid fa-x"></i>
+        </button>
+    </div>
+    <div class="image-wrapper">
+        <img alt="" class="thumbnail" src="https://i.namu.wiki/i/8s7OaNPsZ8KC1e8RQ6QZEwgfFUoIVVOIm0jA72-UO6Imw0OgI1aEK_DulMeXWbg4tstts3IQFMJS0jmYKD9rzQ.webp" rel="thumbnailImage">
+    </div>
+    <div class="summary">
+        <div class="name-wrapper">
+            <span class="name" rel="nameText">맨션 드 방콕</span>
+            <span class="category" rel="categoryText">태국 음식</span>
+        </div>
+        <div class="rate-wrapper">
+            <i class="icon fa-solid fa-star"></i>
+            <span class="value" rel="ratingText">4.59</span>
+            <span class="split">리뷰</span>
+            <span class="review-count" rel="reviewCountText">2,060</span>
+        </div>
+        <div class="button-container">
+            <button class="button" type="button" rel="saveButton">
+                <i class="icon fa-solid fa-star"></i>
+                <span class="text">저장</span>
+            </button>
+            <button class="button" type="button" rel="modifyButton">
+                <i class="icon fa-solid fa-pen"></i>
+                <span class="text">수정</span>
+            </button>
+            <button class="button" type="button" rel="deleteButton">
+                <i class="icon fa-solid fa-trash-can"></i>
+                <span class="text">삭제</span>
+            </button>
+            <button class="button" type="button" rel="reportButton">
+                <i class="icon fa-solid fa-circle-exclamation"></i>
+                <span class="text">신고</span>
+            </button>
+        </div>
+    </div>
+    <ul class="info">
+        <li class="item">
+            <i class="icon fa-solid fa-location-dot"></i>
+            <span class="text" rel="addressText">대구 중구 동성로 1</span>
+        </li>
+        <li class="item">
+            <i class="icon fa-solid fa-clock"></i>
+            <span class="text" rel="scheduleText">영업 중 (11:30 ~ 21:20)</span>
+        </li>
+        <li class="item">
+            <i class="icon fa-solid fa-phone"></i>
+            <a class="text" href="tel:010-1234-5678" rel="contactText">010-1234-5678</a>
+        </li>
+        <li class="item">
+            <i class="icon fa-solid fa-comment"></i>
+            <span class="text" rel="descriptionText">설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명</span>
+        </li>
+    </ul>
+    <form novalidate class="review-form" th:with="placeReviewRegex = ${T(com.ksh.matzips.regexes.PlaceReviewRegex)}">
+        <input hidden name="placeIndex" type="hidden">
+        <label class="_obj-label" rel="ratingLabel">
+            <span class="__text">평점</span>
+            <select required class="_obj-input __field" name="rating">
+                <option selected value="5">⭐⭐⭐⭐⭐</option>
+                <option value="4">⭐⭐⭐⭐</option>
+                <option value="3">⭐⭐⭐</option>
+                <option value="2">⭐⭐</option>
+                <option value="1">⭐</option>
+            </select>
+        </label>
+        <label class="_obj-label" rel="contentLabel">
+            <span class="__text">내용</span>
+            <textarea required autocomplete="off" class="_obj-textarea __field" maxlength="1000" minlength="10" name="content" placeholder="리뷰 내용은 10자 이상 1000자 이하로 작성해 주세요." rows="5" spellcheck="false" th:attrappend="data-regex=${placeReviewRegex.content.expression}"></textarea>
+            <span class="__warning">올바른 내용을 작성해 주세요.</span>
+        </label>
+        <div class="_obj-label images-label" rel="imagesLabel">
+            <span class="__text">첨부 이미지</span>
+            <input hidden multiple accept="image/*" name="images" type="file">
+            <span class="image-container" rel="imageContainer">
+                <span class="empty">첨부 이미지가 없습니다.</span>
+            </span>
+            <span class="button-container">
+                <button class="_obj-button" name="imageDeleteButton" type="button">선택 삭제</button>
+                <button class="_obj-button" name="imageClearButton" type="button">모두 삭제</button>
+                <span class="spring"></span>
+                <button class="_obj-button" name="imageAddButton" type="button">추가</button>
+            </span>
+        </div>
+        <button class="_obj-button" type="submit">작성하기</button>
+    </form>
+    <ul class="reviews">
+        <li class="item">
+            <span class="user-wrapper">
+                <span class="nickname" rel="nicknameText">샘플유저1</span>
+                <span class="summary">
+                    <span class="caption">리뷰</span>
+                    <span class="value" rel="totalReviewCountText">96</span>
+                    <span class="caption">사진</span>
+                    <span class="value" rel="totalImageCounText">402</span>
+                </span>
+            </span>
+            <span class="image-container js-flickity" data-flickity='{ "cellAlign": "left", "contain": true, "pageDots": false, "wrapAround": true }'>
+                <img alt="" class="image" src="https://cdnweb01.wikitree.co.kr/webdata/editor/202011/20/img_20201120153506_39ceb616.webp">
+                <img alt="" class="image" src="https://cdnweb01.wikitree.co.kr/webdata/editor/202011/20/img_20201120153506_39ceb616.webp">
+                <img alt="" class="image" src="https://cdnweb01.wikitree.co.kr/webdata/editor/202011/20/img_20201120153506_39ceb616.webp">
+                <img alt="" class="image" src="https://cdnweb01.wikitree.co.kr/webdata/editor/202011/20/img_20201120153506_39ceb616.webp">
+                <img alt="" class="image" src="https://cdnweb01.wikitree.co.kr/webdata/editor/202011/20/img_20201120153506_39ceb616.webp">
+            </span>
+            <span class="content" rel="contentText">리뷰 내용입니다</span>
+            <span class="datetime" rel="dateTimeText">2024-04-18 15:18:10</span>
+            <span class="like-container">
+                <button class="button like selected">
+                    <i class="icon fa-solid fa-caret-up"></i>
+                    <span class="count">1,177</span>
+                </button>
+                <button class="button dislike">
+                    <i class="icon fa-solid fa-caret-down"></i>
+                    <span class="count">58</span>
+                </button>
+            </span>
+        </li>
+    </ul>
+</aside>
+</html>

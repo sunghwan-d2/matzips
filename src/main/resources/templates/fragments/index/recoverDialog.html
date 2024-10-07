@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<div class="dialog" id="recoverDialog" th:fragment="recoverDialog" th:with="userRegex=${T(com.ksh.matzips.regexes.UserRegex)}, emailAuthRegex=${T(com.ksh.matzips.regexes.EmailAuthRegex)}">
+    <h2 class="title">계정 찾기</h2>
+    <form class="type-wrapper" rel="typeWrapper">
+        <label class="type">
+            <span class="title">이메일 찾기</span>
+            <span class="text">가입시 입력했던 닉네임을 통해 이메일을 찾습니다.</span>
+            <input checked class="input" name="recoverType" value="email" type="radio">
+        </label>
+        <label class="type">
+            <span class="title">비밀번호 재설정</span>
+            <span class="text">이메일 인증을 통해 비밀번호를 재설정할 수 있습니다.</span>
+            <input class="input" name="recoverType" value="password" type="radio">
+        </label>
+    </form>
+    <form class="recover email" rel="emailRecoverForm">
+        <label class="_obj-label" rel="nicknameLabel">
+            <span class="__text">닉네임</span>
+            <input required autocomplete="off" class="_obj-input __field input" maxlength="10" minlength="2"
+                   name="nickname" placeholder="닉네임 (숫자, 영어 대소문자, 완성 환글 2자 이상 10자 이하)" type="text"
+                   th:attrappend="data-regex=${userRegex.nickname.expression}">
+            <span class="__warning">올바른 닉네임을 입력해 주세요.</span>
+        </label>
+        <button class="_obj-button" type="submit">이메일 찾기</button>
+    </form>
+    <form class="recover password" rel="passwordRecoverForm">
+        <input hidden name="emailSalt" type="hidden">
+        <label class="_obj-label label" rel="emailLabel">
+            <span class="__text">이메일</span>
+            <span class="horizontal">
+                <input required autocomplete="email" class="_obj-input __field input spring" maxlength="50"
+                       minlength="5" name="email" placeholder="이메일 (user@sample.com)" spellcheck="false" type="email"
+                       th:attrappend="data-regex=${userRegex.email.expression}">
+                <button class="_obj-button" name="emailSend" type="button">인증번호 전송</button>
+            </span>
+            <span class="horizontal">
+                <input disabled required autocomplete="one-time-code" class="_obj-input __field input spring"
+                       maxlength="6" minlength="6" name="emailCode" placeholder="인증번호 (숫자 여섯 자리)" spellcheck="false"
+                       type="text" th:attrappend="data-regex=${emailAuthRegex.code.expression}">
+                <button disabled class="_obj-button" name="emailVerify" type="button">인증번호 확인</button>
+            </span>
+            <span class="__warning">올바른 이메일을 입력해 주세요.</span>
+        </label>
+        <label class="_obj-label label" rel="passwordLabel">
+            <span class="__text">신규 비밀번호</span>
+            <input disabled required autocomplete="new-password" class="_obj-input __field input" maxlength="50"
+                   minlength="5" name="password" placeholder="신규 비밀번호 (숫자, 영어 대소문자, 특수기호 5자 이상 50자 이하)" type="password"
+                   th:attrappend="data-regex=${userRegex.password.expression}">
+            <input disabled required autocomplete="new-password" class="_obj-input __field input" maxlength="50"
+                   minlength="5" name="passwordCheck" placeholder="신규 비밀번호를 한 번 더 입력해 주세요." type="password">
+            <span class="__warning">올바른 비밀번호를 입력해 주세요.</span>
+        </label>
+        <button class="_obj-button" type="submit">비밀번호 재설정</button>
+    </form>
+    <button class="_obj-button" rel="cancelButton" type="button">돌아가기</button>
+</div>
+</html>

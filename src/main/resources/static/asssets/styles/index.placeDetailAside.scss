@@ -1,0 +1,347 @@
+@charset "UTF-8";
+
+#placeDetailAside {
+  > .image-wrapper {
+    background-color: #e0e0e0;
+    display: grid;
+    gap: 0.0625rem;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+
+    > .thumbnail {
+      width: 100%;
+      aspect-ratio: 1/1;
+      grid-column: 1/3;
+      grid-row: 1/3;
+      object-fit: cover;
+      object-position: center;
+    }
+  }
+
+  > .summary {
+    align-items: stretch;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+    > .name-wrapper {
+      padding: 1rem;
+
+      align-items: center;
+      display: flex;
+      flex-direction: row;
+      gap: 0.75rem;
+      justify-content: flex-start;
+
+      > .name {
+        font-size: 1.25rem;
+        font-weight: 800;
+      }
+
+      > .category {
+        color: #9e9e9e;
+        font-size: 1rem;
+      }
+    }
+
+    > .rate-wrapper {
+      padding: 0 1rem 1rem 1rem;
+
+      align-items: center;
+      display: flex;
+      flex-direction: row;
+      gap: 0.375rem;
+      justify-content: flex-start;
+
+      > .icon {
+        color: #e74c3c;
+      }
+
+      > .value {
+        font-size: 1rem;
+        font-weight: 600;
+      }
+
+      > .split,
+      > .review-count {
+        color: #757575;
+      }
+    }
+
+    > .button-container {
+      border-top: 0.0625rem solid darken(#ffffff, 5%);
+      border-bottom: 0.0625rem solid darken(#ffffff, 5%);
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+
+      > .button {
+        appearance: none;
+        background-color: inherit;
+        border: none;
+        color: #757575;
+        cursor: pointer;
+        padding: 0.875rem 0.5rem;
+        user-select: none;
+
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+        justify-content: center;
+
+        & + .button {
+          border-left: 0.0625rem solid darken(#ffffff, 5%);
+        }
+
+        &:hover {
+          color: darken(#757575, 10%);
+        }
+
+        &:active {
+          color: darken(#757575, 20%);
+
+        }
+      }
+    }
+  }
+
+  > .info {
+    border-bottom: 0.75rem solid #eeeeee;
+    padding: 1rem;
+
+    align-items: stretch;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    justify-content: flex-start;
+
+    > .item {
+      align-items: flex-start;
+      display: flex;
+      flex-direction: row;
+      gap: 0.5rem;
+      justify-content: flex-start;
+
+      > .icon {
+        width: 1.25rem;
+        color: #bdbdbd;
+        font-size: 1rem;
+        text-align: center;
+      }
+    }
+  }
+
+  > .review-form {
+    border-bottom: 0.75rem solid #eeeeee;
+    padding: 1rem;
+
+    align-items: stretch;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    justify-content: flex-start;
+
+    > .images-label {
+      > .image-container {
+        width: 100%;
+        background-color: #eeeeee;
+        border-radius: 0.25rem;
+        box-sizing: border-box;
+        overflow: auto hidden;
+        padding: 0.5rem;
+
+        align-items: stretch;
+        display: flex;
+        flex-direction: row;
+        gap: 0.25rem;
+        justify-content: flex-start;
+
+        > .empty {
+          flex: 1;
+          padding: 2.25rem 0;
+          text-align: center;
+        }
+
+        > .image-wrapper {
+          cursor: pointer;
+
+          > input[type="checkbox"]:checked ~ .image {
+            border-color: #3498db;
+            filter: brightness(75%);
+          }
+
+          > .image {
+            height: 5rem;
+            aspect-ratio: 1/1;
+            border: 0.2rem solid #e0e0e0;
+            border-radius: 0.25rem;
+            object-fit: cover;
+            object-position: center;
+          }
+        }
+      }
+
+      > .button-container {
+        align-items: stretch;
+        display: flex;
+        flex-direction: row;
+        gap: 0.375rem;
+        justify-content: flex-start;
+
+        > .spring {
+          flex: 1;
+        }
+      }
+    }
+  }
+
+  > .reviews {
+    align-items: stretch;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+    > .item {
+      padding: 1rem;
+
+      align-items: stretch;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      justify-content: flex-start;
+
+      > .user-wrapper {
+        align-items: stretch;
+        display: flex;
+        flex-direction: column;
+        gap: 0.375rem;
+        justify-content: flex-start;
+
+        > .nickname {
+          font-size: 1.0625rem;
+          font-weight: 600;
+        }
+
+        > .summary {
+          color: #757575;
+
+          align-items: center;
+          display: flex;
+          flex-direction: row;
+          gap: 0.25rem;
+          justify-content: flex-start;
+
+          > .rating-wrapper {
+            align-items: center;
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+
+            > .score {
+              color: #f1c40f;
+            }
+            > .rest {
+              color: #bdbdbd;
+            }
+          }
+
+          > .caption:not(:first-child)::before {
+            color: #757575;
+            content: '/';
+            margin-right: 0.25rem;
+          }
+        }
+      }
+
+      > .image-container {
+        .image {
+          width: 66%;
+          height: 10rem;
+          aspect-ratio: 1/1;
+          border-radius: 0.25rem;
+          margin-right: 0.5rem;
+          object-fit: cover;
+          object-position: center;
+        }
+      }
+
+      > .content {
+        line-height: 1.375;
+        text-align: justify;
+      }
+
+      > .datetime {
+        color: #757575;
+        font-size: 0.8rem;
+      }
+
+      > .like-container {
+        align-self: flex-end;
+        border: 0.0625rem solid #e0e0e0;
+        border-radius: 999rem;
+        margin-top: -1.75rem;
+        overflow: hidden;
+
+        align-items: stretch;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+
+        > .button {
+          background-color: #ffffff;
+          border: none;
+          cursor: pointer;
+          font-size: 0.7rem;
+          padding: 0.375rem 0.75rem;
+
+          align-items: center;
+          display: flex;
+          flex-direction: row;
+          gap: 0.375rem;
+          justify-content: center;
+
+          & + .button {
+            border-left: 0.0625rem solid #e0e0e0;
+          }
+
+          &.like {
+            color: #e74c3c;
+          }
+
+          &.dislike {
+            color: #3498db;
+          }
+
+          &:hover {
+            background-color: darken(#ffffff, 5%);
+          }
+
+          &:active {
+            background-color: darken(#ffffff, 10%);
+          }
+
+          &.selected {
+            background-color: darken(#ffffff, 10%);
+            font-weight: 600;
+          }
+        }
+      }
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
